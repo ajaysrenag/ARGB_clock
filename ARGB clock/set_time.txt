@@ -1,0 +1,39 @@
+====================================================================
+               HOW TO SET AND LOCK THE RTC TIME 
+====================================================================
+
+STEP 1: UNCOMMENT AND SET THE CURRENT TIME
+--------------------------------------------------------------------
+1. Open your project's `src/main.cpp` file in VS Code.
+2. Locate line 66 inside the `setup()` function:
+   // rtc.adjust(DateTime(2026, 6, 17, 16, 04, 0));
+
+3. Remove the two forward slashes (`//`) at the start of the line to uncomment it.
+4. Update the numbers to match your current time in 24-HOUR format:
+   rtc.adjust(DateTime(YEAR, MONTH, DAY, HOUR, MINUTE, SECOND));
+
+   * Example (8:30 AM):  rtc.adjust(DateTime(2026, 8, 13, 8, 30, 0));
+   * Example (6:45 PM):  rtc.adjust(DateTime(2026, 8, 13, 18, 45, 0));
+
+
+STEP 2: FIRST UPLOAD (WRITE TIME TO RTC)
+--------------------------------------------------------------------
+1. Connect your microcontroller to your computer via USB.
+2. Click the Upload button in PlatformIO.
+3. Once finished, your clock will display the time you just configured.
+
+
+STEP 3: COMMENT OUT AND RE-UPLOAD (LOCK TIME)
+--------------------------------------------------------------------
+1. Return to line 66 in `src/main.cpp`.
+2. Put the two forward slashes (`//`) back in front of the line:
+   // rtc.adjust(DateTime(2026, 8, 13, 8, 30, 0));
+
+3. Click the Upload button in PlatformIO one final time.
+
+--------------------------------------------------------------------
+WHY STEP 3 IS IMPORTANT:
+Disabling this line prevents the controller from resetting the clock 
+to the hardcoded timestamp every time it powers on or reboots. 
+The RTC coin battery will now handle background timekeeping independently.
+====================================================================
